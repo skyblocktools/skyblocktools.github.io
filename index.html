@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Skyblock Tools</title>
+
+        <base target="_blank">
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="manifest" href="site.webmanifest">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <style>
+            .footer {
+                background-color: dimgray;
+                font-weight: 200;
+                font-style: italic;
+                width:100%;
+                position:absolute;
+
+            }
+            .content {
+                
+                
+            }
+            .text-center {
+                text-align: middle;
+                vertical-align: middle;
+            }
+            body {
+                overflow-x: hidden;
+                color:white;
+                background-color: black
+            }
+            .main {
+                width: 100%;
+                height: 100%;
+                justify-content: center;
+            }
+            .slidecontainer{
+                width:100%;
+            }
+            .slider{
+                -webkit-appearance: none; 
+                appearance: none;
+                width: 100%;
+                height: 25px; 
+                background: #d3d3d3; 
+                outline: none;
+                opacity: 0.7;
+                -webkit-transition: .2s; 
+                transition: opacity .2s;
+            }
+            .slider:hover {
+                opacity: 1;
+            }
+            .slider::-webkit-slider-thumb {
+                -webkit-appearance: none; 
+                appearance.: none;
+                width: 25px; 
+                height: 25px; 
+                background: #4CAF50; 
+                cursor: pointer; 
+            }
+
+            .slider::-moz-range-thumb {
+              width: 25px; 
+              height: 25px;
+              background: #4CAF50; 
+              cursor: pointer; 
+            }
+            .content {
+                padding: 10%;
+            }
+            .column {
+                padding: 1%;
+                float: left;
+                width: 50%;
+                text-align: center;
+                height: auto;
+            }
+            .row:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            .outputContainer {
+                height:50%
+            }
+            .outputText {
+                opacity: 0;
+                animation: fade-in 1s ease-out forwards;
+                animation-delay: 0s;
+            }
+            
+            @keyframes fade-in {
+
+                from {margin-top:10px; opacity: 0;}
+                to {margin-top:0px; opacity: 1;}
+            
+            }
+            @keyframes fade-in-disabled {
+
+                from {margin-top:10px; opacity: 0;}
+                to {margin-top:0px; opacity: 0.2;}
+            
+            }
+            .enabled {
+                animation: fade-in 1s ease-out forwards;
+            }
+            .itemContainer{
+                border: 1px solid black;
+                background-color: #ba5a97;
+                background-color: rgba(88, 151, 252, 0.8);
+                border-radius: 13px;
+                align-items: center;
+                padding: 5%;
+                color: white;
+                margin-top: 5%;
+                margin-bottom: 5%;
+                width:100%;
+            }
+            .titleText{
+                font-family: "Helvetica Neue", Arial, "Times New Roman";
+                font-weight: 700;
+                color:white;
+                font-size: 155%;
+                padding-bottom: 10px;
+            }
+            .creditsText{
+                padding-top: 10px;
+                font-family: "Helvetica Neue", Arial, "Times New Roman";
+                font-weight: 200;
+                color:white;
+                font-size: 105%;
+                font-style:italic;
+            }
+            .tableItemContainer {
+                width:100%;
+                bottom:auto;
+                
+
+            }
+            .seperatorLabel {
+                text-align: center;
+                font-family: "Helvetica Neue", Arial, "Times New Roman";
+                font-weight: 500;
+                font-size: 305%;
+                
+
+            }
+            .column {
+                width:33%;
+                
+            }
+            .row {
+                width:100%;
+            }
+            .imageBackground {
+                position: fixed;
+                width:100%;
+                height:100%;
+                top:0px;
+                left:0px;
+                margin: 0%;
+                padding: 0%;
+                z-index: -1000;
+                display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+            } 
+           .imageBackground img {
+                position:fixed;
+                display:block;
+                -webkit-animation-name: fade;
+                -webkit-animation-iteration-count: infinite;
+                -webkit-animation-duration: 40s;
+                animation-name: fade;
+                animation-iteration-count: infinite;
+                animation-duration: 40s;
+                width:100%;
+                height:auto;
+                margin-top: auto;
+               margin-bottom: auto;
+               object-fit: cover;
+               min-height: 100%;
+               filter: blur(8px)
+            }
+            @-webkit-keyframes fade {
+                0% {opacity: 0;}
+                20% {opacity: 1;}
+                33% {opacity: 1;}
+                53% {opacity: 0;}
+                100% {opacity: 0;}
+            }
+            @keyframes fade {
+                0% {opacity: 0;}
+                20% {opacity: 1;}
+                33% {opacity: 1;}
+                53% {opacity: 0;}
+                100% {opacity: 0;}
+            }
+            #hub {
+                -webkit-animation-delay: -0s;
+            }
+            #ruins {
+                -webkit-animation-delay: -5s;
+            }
+            #farm {
+                -webkit-animation-delay: -10s;
+            }
+            #mushroomDesert {
+                -webkit-animation-delay: -15s;
+            }
+            #goldMine {
+                -webkit-animation-delay: -20s;
+            }
+            #deepCaverns {
+                -webkit-animation-delay: -25s;
+            }
+            #blazingFortress {
+                -webkit-animation-delay: -30s;
+            }
+            #end {
+                -webkit-animation-delay: -35s;
+            }
+            #spidersDen {
+                -webkit-animation-delay: -40s;
+            }
+            #magmaBoss:before {
+
+                padding: 5px;
+                vertical-align: middle;
+                content: url('images/timers/magmaBoss.png');
+            }
+            #darkAH:before {
+
+                padding: 5px;
+                vertical-align: middle;
+                content: url('images/timers/darkAH.png');
+            }
+            #bank:before {
+
+                padding: 5px;
+                vertical-align: middle;
+                content: url('images/timers/bankInterest.png');
+            }
+            #newYear:before {
+
+                padding: 5px;
+                vertical-align: middle;
+                content: url('images/timers/newYears.png');
+            }
+            #spooky:before {
+
+                padding: 5px;
+                vertical-align: middle;
+                content: url('images/timers/spooky.png');
+            }
+            #winter:before {
+
+                padding: 5px;
+                vertical-align: middle;
+                content: url('images/timers/winter.png');
+            }
+            .timerContainer {
+                font-size: 40px;
+                padding-bottom: 6%;
+            }
+            a {
+                color: white;
+            }
+            a:hover {
+                color:white
+            }
+            hr {
+                
+            }
+
+        </style>
+    </head>
+    <body id="body">
+        <div id="images" class="imageBackground">
+            <img id="hub" src="./images/bg/hub.png" />
+            <img id="ruins" src="./images/bg/ruins.png" />
+            <img id="farm" src="./images/bg/farm.png" />
+            <img id="mushroomDesert" src="./images/bg/mushroom%20desert.png" />
+            <img id="goldMine" src="./images/bg/gold%20mine.png" />
+            <img id="deepCaverns" src="./images/bg/deep%20caverns.png" />
+            <img id="blazingFortress" src="./images/bg/blazing%20fortress.png" />
+            <img id="end" src="./images/bg/end.png" />
+            <img id="spidersDen" src="./images/bg/spiders%20den.png" />
+        </div>
+
+        <div class='main'>
+            
+            <div class='content'>
+                <div class='outputContainer' id='outputContainer'>
+                    <h1 id='outputText' class='text-center fade-in outputText'>Skyblock Tools: The hub for code creations made by the community.</h1>
+                </div>
+                <hr>
+                <div class='tableItemContainer'>
+                    <div class='seperatorLabel'>
+                        General Tools
+                    </div>
+                    <div class='column'>
+                        <div class='itemContainer'>
+                            <div class='titleText'>
+                                <a href='https://hypixel.inventivetalent.org' >
+                                    Timers
+                                </a>
+                            </div>
+                            <div class='timerContainer'>
+                                <a href='https://hypixel.inventivetalent.org/skyblock-magma-timer/' id='magmaBoss'>Loading</a>
+                            </div>
+                            <div class='timerContainer'>
+                                <a href='https://hypixel.inventivetalent.org/skyblock-dark-auction-timer/' id='darkAH'>Loading</a>
+                            </div>
+                            <div class='timerContainer'>
+                                <a href='https://hypixel.inventivetalent.org/skyblock-bank-interest-timer/' id='bank'>Loading</a>
+                            </div>
+                            <div class='timerContainer'>
+                                <a href='https://hypixel.inventivetalent.org/skyblock-newyear-timer/' id='newYear'>Loading</a>
+                            </div>
+                            <div class='timerContainer'>
+                                <a href='https://hypixel.inventivetalent.org/skyblock-spooky-festival-timer/' id='spooky'>Loading</a>
+                            </div>
+                            <div class='timerContainer'>
+                                <a href='https://hypixel.inventivetalent.org/skyblock-winter-timer/' id='winter'>Loading</a>
+                            </div>
+                           
+                            <div class='creditsText'>
+                                timers by <a href='https://inventivetalent.org'>InventiveTalent</a>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class='column'>
+                        <div class='itemContainer'>
+                            <div class='titleText'>
+                                <a href='https://www.youtube.com/watch?v=dh3eZICouak' >
+                                    Fairy Soul Locations
+                                </a>
+                            </div>
+                            Find all of them for a significant boost in health, defense, and strength.
+                            <div class='creditsText'>
+                                video by <a href='https://www.youtube.com/channel/UCLhAl8quyukWV77j8uOwjhQ'>TimeDeo</a>
+                            </div>
+                        </div>
+                        <div class='itemContainer'>
+                            <div class='titleText'>
+                                <a href='../boj/' >
+                                    Bottle of Jyrre Calculator
+                                </a>
+                            </div>
+                            Calculate how much a Bottle of Jyrre sells for to an NPC and see how much money you can gain per minute.
+                            <div class='creditsText'>
+                                
+                                calculator by <a href='https://hypixel.net/members/tillvit.1585385/'>tillvit</a>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        <div class='itemContainer'>
+                            <div class='titleText'>
+                                <a href='https://docs.google.com/spreadsheets/d/1W8nGg2_x0Ne4HFKc5kLlCGSTcXlwUpJY_qvnVyiUpVw/edit#gid=991281182' >
+                                    Minion Spreadsheet
+                                </a>
+                            </div>
+                            A spreadsheet with stats about minions. Includes info about price to upgrade, money produced per minute, and which minion to upgrade next.
+                            <div class='creditsText'>
+                                spreadsheet by <a href='https://hypixel.net/members/tblazewarriort.132642/'>TBlazeWarriorT</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='column'>
+                        <div class='itemContainer'>
+                            <div class='titleText'>
+                                <a href='https://skyblock.matdoes.dev/auctions' >
+                                    Average Auction Prices
+                                </a>
+                            </div>
+                            Check out real time prices of the Hypixel Skyblock Auction House.
+                            <div class='creditsText'>
+                                data by <a href='https://matdoes.dev'>matdoesdev</a>
+                            </div>
+                        </div>
+                        <div class='itemContainer'>
+                            <div class='titleText'>
+                                <a href='https://hypixel.net/threads/guide-skyblock-enchantments.2093011/' >
+                                    Enchantment Guide
+                                </a>
+                            </div>
+                            See info about enchantments and the lowest level needed to get that enchant.
+                            <div class='creditsText'>
+                                post by <a href='https://hypixel.net/members/hookle.923833/'>Hookle</a>
+                            </div>
+                        </div>
+                        <div class='itemContainer'>
+                            <div class='titleText'>
+                                <a href='https://docs.google.com/spreadsheets/u/1/d/1Hw-SXUecWoQQUuq9f7H-e38Pzy-k1uJAhY2vAzj620Y/htmlview?sle=true#' >
+                                    Hypixel Skyblock Spreadsheet
+                                </a>
+                            </div>
+                            A spreadsheet with information about different weapons, armor, reforges and more.
+                            <div class='creditsText'>
+                                spreadsheet by <a href='https://hypixel.net/members/megit.1384082/'>Megit</a>
+                            </div>
+                        </div>
+                        
+                        <div class='itemContainer'>
+                            <div class='titleText'>
+                                <a href='https://hypixel.net/threads/guide-how-to-properly-reforge-your-talismans-version-5.2403270/' >
+                                    Talisman Optimizer
+                                </a>
+                            </div>
+                            A program to help optimize your strength, crit damage, and crit chance given the talismans you have.
+                            <div class='creditsText'>
+                                program by <a href='https://hypixel.net/members/notnotmelon.3030533/'>notnotmelon</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+
+                <div class='seperatorLabel '>Player API Tools</div>
+                
+                <div class='tableItemContainer'>
+                    <div style='margin-left:25%;margin-right:25%;'>
+                        <form onsubmit="console.log('yay')" id='usernameform'>
+                            <input class="form-control" placeholder="Username" style='width:100%;text-align: center' id='username' type="text" pattern="[a-zA-Z0-9_]{1,}">
+                        </form>
+                    </div>
+                    <div class="collapse" id="collapseExample">
+                    <div class='column'>
+                        <div class='itemContainer'>
+                            <div class='titleText'>
+                                <a href='https://sky.lea.moe' id='skyleamoe'>Skyblock Stats</a>
+                            </div>
+                            Shows inventory, skills, and stats for a player.
+                            <div class='creditsText'>
+                                website by <a href='https://twitter.com/LeaPhant'>LeaPhant</a>
+                            </div>
+                            
+                            
+                        </div>
+                        
+                    </div>
+                        <div class='column'>
+                        
+                    </div>
+                    <div class='column'>
+                        <div class='itemContainer'>
+                            <div class='titleText'>
+                                <a href='https://skyblock.matdoes.dev' id='matdoesdev'>Hypixel Skyblock Stats</a>
+                            </div>
+                            More detailed information: includes kills, auction stats, slayer levels, and more.
+                            <div class='creditsText'>
+                                website by <a href='https://matdoes.dev'>matdoesdev</a>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                    
+                </div>    
+                </div>
+                
+                <br><br><br><br><br><br>
+            </div>
+            <div class='footer'>
+                <div class='footerContent'>
+                made by tillvit. if you have any questions or complaints, contact me on discord: tillvit#5112
+                </div>
+            </div>
+        </div>
+        
+        
+        <script>
+            
+            
+            document.getElementById("body").onresize = function(){
+                if (window.innerWidth<850) {
+                    for (var i = 0; i < document.getElementsByClassName('column').length; i++){
+                        document.getElementsByClassName('column')[i].classList.add('row')
+                        document.getElementsByClassName('column')[i].classList.remove('column')
+                    }
+                    
+                }else{
+                    for (var i = 0; i < document.getElementsByClassName('row').length; i++){
+                        document.getElementsByClassName('row')[i].classList.add('column')
+                        document.getElementsByClassName('row')[i].classList.remove('row')
+                    }
+                    
+                }
+            }
+
+            function ConvertMinutes(num){
+                if (num < 0) {
+                    return ("NOW")
+                }
+                d = Math.floor(num/1440); // 60*24
+                h = Math.floor((num-(d*1440))/60);
+                m = Math.floor(num%60);
+                s = Math.floor((num - Math.floor(num)) * 60)
+                if (m < 10) {
+                    m = "0" + m
+                }
+                if (s < 10) {
+                    s = "0" + s
+                }
+                if (h < 10) {
+                    h = "0" + h
+                }
+                if (d < 1) {
+                    if (h < 1) {
+                        return(m + ":" + s);
+                    }else{
+                        return(h + ":"+m+ ":"+s);
+                    }
+                }else{
+                    return(d+":" + h + ":"+m+ ":"+s);
+                }
+                
+              
+            }
+            //Thanks to inventivetalent for this code
+            function get(path) {
+                let now = Date.now();
+                    $.ajax("https://hypixel-api.inventivetalent.org/api/skyblock/" + path).done(function (data) {
+                       
+                        let m = moment.duration(data.estimate - now).asMinutes();
+                        if (path == "bosstimer/magma/estimatedSpawn") {
+                            magmaBossTimer = data.estimate;
+                        }
+                        if (path == "darkauction/estimate") {
+                            darkAH = data.estimate;
+                        }
+                        if (path == "bank/interest/estimate") {
+                            bank = data.estimate;
+                        }
+                        if (path == "newyear/estimate") {
+                            newYear = data.estimate;
+                        }
+                        if (path == "spookyFestival/estimate") {
+                            spooky = data.estimate;
+                        }
+                        if (path == "winter/estimate") {
+                            winter = data.estimate;
+                        }
+
+                    });
+                }
+            //
+            setInterval(function(){ 
+                var m = moment.duration(magmaBossTimer - Date.now()).asMinutes();
+                $("#magmaBoss").text(ConvertMinutes(m))
+                m = moment.duration(darkAH - Date.now()).asMinutes();
+                $("#darkAH").text(ConvertMinutes(m))
+                m = moment.duration(bank - Date.now()).asMinutes();
+                $("#bank").text(ConvertMinutes(m))
+                m = moment.duration(newYear - Date.now()).asMinutes();
+                $("#newYear").text(ConvertMinutes(m))
+                m = moment.duration(spooky - Date.now()).asMinutes();
+                $("#spooky").text(ConvertMinutes(m))
+                m = moment.duration(winter - Date.now()).asMinutes();
+                $("#winter").text(ConvertMinutes(m))
+                if (window.innerWidth<850) {
+                    for (var i = 0; i < document.getElementsByClassName('column').length; i++){
+                        document.getElementsByClassName('column')[i].classList.add('row')
+                        document.getElementsByClassName('column')[i].classList.remove('column')
+                    }
+
+                }else{
+                    for (var i = 0; i < document.getElementsByClassName('row').length; i++){
+                        document.getElementsByClassName('row')[i].classList.add('column')
+                        document.getElementsByClassName('row')[i].classList.remove('row')
+                    }
+
+                }
+            }, 10);
+            setInterval(function(){ 
+                get("bosstimer/magma/estimatedSpawn");
+                get("darkauction/estimate");
+                get("bank/interest/estimate");
+                get("newyear/estimate");
+                get("spookyFestival/estimate");
+                get("winter/estimate");
+                
+            }, 6000);
+            
+            var magmaBossTimer = Date.now()
+            var darkAH = Date.now()
+            var bank = Date.now()
+            var newYear = Date.now()
+            var spooky = Date.now()
+            var winter = Date.now()
+            $(document).ready(function () {
+                
+
+                
+
+                get("bosstimer/magma/estimatedSpawn");
+                get("darkauction/estimate");
+                get("bank/interest/estimate");
+                get("newyear/estimate");
+                get("spookyFestival/estimate");
+                get("winter/estimate");
+            })
+
+            $(document).ready(function() {
+                $(document).on('submit', '#usernameform', function() {
+                    
+                    document.getElementById('skyleamoe').href = "https://sky.lea.moe/stats/" + document.getElementById('username').value.trim()
+                    document.getElementById('matdoesdev').href = "https://skyblock.matdoes.dev/profiles/" + document.getElementById('username').value.trim()
+                    if (document.getElementById('username').value.trim() == ""){
+                        $('.collapse').collapse('hide')
+                    }else{
+                        $('.collapse').collapse('show')
+                    }
+                  return false;
+                });
+            });
+        </script>
+    </body>
+</html>
